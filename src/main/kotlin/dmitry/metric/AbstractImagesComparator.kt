@@ -24,7 +24,7 @@ abstract class AbstractImagesComparator(protected val basicMonochromeImage: Buff
 
         convertImagesToGrayMonochrome()
 
-        return compareGrayMonochromeImages();
+        return compareGrayMonochromeImages()
 
     }
 
@@ -32,5 +32,5 @@ abstract class AbstractImagesComparator(protected val basicMonochromeImage: Buff
         return Color(getRGB(x, y)).red
     }
 
-    abstract fun compareGrayMonochromeImages(): Double
+    protected abstract fun compareGrayMonochromeImages(): Double
 }
