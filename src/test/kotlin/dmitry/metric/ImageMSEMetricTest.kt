@@ -12,6 +12,5 @@ class ImageMSEMetricTest {
 
     @BeforeAll
     fun load() {
-        baseImage = getC
     }
 }
