@@ -2,20 +2,9 @@ import dmitry.metric.ImageMSEMetric
 import dmitry.metric.ImageUQIMetric
 import java.awt.image.BufferedImage
 import java.io.File
-import java.util.Scanner
 import javax.imageio.ImageIO
 
-fun main(args: Array<String>) {
-    val scanner = Scanner(System.`in`)
-
-    //val imagePath = scanner.nextLine()
-    //val comparableImagePath = scanner.nextLine()
-
-    val imagePath = "C:\\Users\\xTopZ\\Pictures\\wallpaper2you_162395.jpg"
-    val comparableImagePath = "C:\\Users\\xTopZ\\Pictures\\wallpaper2you_162395.png"
-
-    //calculateMSEMetricAndPrintIt(imagePath, comparableImagePath)
-    testUQIMetric(imagePath, comparableImagePath)
+fun main() {
 }
 
 fun testUQIMetric(imagePath: String, comparableImagePath: String) {
