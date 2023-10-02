@@ -2,24 +2,28 @@ package dmitry.noise
 
 import java.awt.Color
 import java.awt.image.BufferedImage
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class AdditiveNoiseGenerator(
-    val image: BufferedImage,
-    val normalizedProbabilityDistribution: DoubleArray,
-    val noisePercentage: Double
+abstract class AdditiveNoiseGenerator(
+    private val image: BufferedImage,
+    private val noisePercentage: Double
 ): NoiseGenerator
 {
+
+    protected lateinit var normalizedProbabilityDistribution: DoubleArray
 
     override fun generate(): BufferedImage {
 
         val points = takeNoisePoints()
 
         for ((x, y) in points) {
-            var probabilityIndex = generateProbabilityIndex()
+            val probabilityIndex = generateProbabilityIndex()
 
-            image.setRGB(x, y, Color.WHITE.rgb)
+            val colorWithNoise = Color(image.getRGB(x, y)) + Triple(probabilityIndex, probabilityIndex, probabilityIndex)
+            image.setRGB(x, y, colorWithNoise.rgb)
         }
 
         return image
@@ -29,17 +33,22 @@ class AdditiveNoiseGenerator(
         //Random number in range [0..1]
         val randomNumber = Random.nextDouble()
 
-        var i = 0
         var sumBefore = 0.0;
-        while (i < normalizedProbabilityDistribution.size) {
 
+        for (i in normalizedProbabilityDistribution.indices) {
             val delta = randomNumber - sumBefore
-            val probability = normalizedProbabilityDistribution;
+            val probability = normalizedProbabilityDistribution[i];
 
             if (0 <= delta && delta <= normalizedProbabilityDistribution[i]) {
-                sumBefore += probability
+                return i
             }
+
+            sumBefore += probability
         }
+
+        throw IllegalStateException(
+            "normalizedProbabilityDistribution values must be in range [0..1]"
+        )
     }
 
     private fun takeNoisePoints(): Set<Pair<Int, Int>> {
@@ -48,20 +57,20 @@ class AdditiveNoiseGenerator(
 
         val tookPoints = HashSet<Pair<Int, Int>>(pointsNeed)
 
-        val allPoints = ArrayList<Pair<Int, Int>>(image.width * image.height)
+        val totalPoints = ArrayList<Pair<Int, Int>>(image.width * image.height)
 
         for (x in 0..<image.width) {
             for (y in 0..<image.height) {
-                allPoints += Pair(x, y)
+                totalPoints += Pair(x, y)
             }
         }
 
         val random = Random
 
         while (pointsNeed-- > 0) {
-            val index = random.nextInt(0..<allPoints.size)
-            tookPoints += allPoints[index]
-            allPoints.removeAt(index)
+            val index = random.nextInt(0..<totalPoints.size)
+            tookPoints += totalPoints[index]
+            totalPoints.removeAt(index)
         }
 
         return tookPoints
@@ -69,4 +78,16 @@ class AdditiveNoiseGenerator(
     }
 
 
+}
+
+private operator fun Color.plus(triple: Triple<Int, Int, Int>): Color {
+    val resultRed = bound(red + triple.first)
+    val resultGreen = bound(green + triple.second)
+    val resultBlue = bound(blue + triple.third)
+
+    return Color(resultRed, resultGreen, resultBlue)
+}
+
+fun bound(color: Int): Int {
+    return min(max(color, 0), 255)
 }
