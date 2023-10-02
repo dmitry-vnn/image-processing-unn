@@ -17,9 +17,12 @@ abstract class AdditiveNoiseGenerator(
 
     override fun generate(): BufferedImage {
 
-        val points = takeNoisePoints()
+        var pointsNeedToNoise = (noisePercentage * image.width * image.height).toInt()
 
-        for ((x, y) in points) {
+        while (pointsNeedToNoise-- > 0) {
+
+            val (x, y) = takeNoisePoint()
+
             val probabilityIndex = generateProbabilityIndex()
 
             val colorWithNoise = Color(image.getRGB(x, y)) + Triple(probabilityIndex, probabilityIndex, probabilityIndex)
@@ -27,6 +30,13 @@ abstract class AdditiveNoiseGenerator(
         }
 
         return image
+    }
+
+    private fun takeNoisePoint(): Pair<Int, Int> {
+        val x = Random.nextInt(0..<image.width)
+        val y = Random.nextInt(0..<image.height)
+
+        return Pair(x, y)
     }
 
     private fun generateProbabilityIndex(): Int {
