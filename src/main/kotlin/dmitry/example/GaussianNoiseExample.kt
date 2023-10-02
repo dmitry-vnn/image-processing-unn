@@ -13,7 +13,7 @@ val outImagePath = ExamplePathEvaluator.defaultOutputPath<GaussianNoiseExample>(
 
 fun main() {
 
-    val generatedImage = GaussianNoiseGenerator(10.0, 20.0, .5, ImageLoader(inImagePath).load()).generate()
+    val generatedImage = GaussianNoiseGenerator(10.0, 20.0, .7, ImageLoader(inImagePath).load()).generate()
     ImageSaver(generatedImage, outImagePath).save()
 
 }
