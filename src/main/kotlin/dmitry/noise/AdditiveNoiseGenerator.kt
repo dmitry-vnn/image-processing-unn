@@ -9,11 +9,10 @@ import kotlin.random.nextInt
 
 abstract class AdditiveNoiseGenerator(
     private val image: BufferedImage,
-    private val noisePercentage: Double
+    private val noisePercentage: Double,
+    protected var normalizedProbabilityDistribution: DoubleArray
 ): NoiseGenerator
 {
-
-    protected lateinit var normalizedProbabilityDistribution: DoubleArray
 
     override fun generate(): BufferedImage {
 

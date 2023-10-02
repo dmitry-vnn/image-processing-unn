@@ -1,15 +1,15 @@
 package dmitry.example
 
+import dmitry.example.GaussianNoiseExample.inImagePath
+import dmitry.example.GaussianNoiseExample.outImagePath
 import dmitry.noise.additive.GaussianNoiseGenerator
 import dmitry.store.ImageLoader
 import dmitry.store.ImageSaver
-import java.awt.image.BufferedImage
-import javax.imageio.ImageIO
 
-class GaussianNoiseExample
-
-val inImagePath = ExamplePathEvaluator.defaultInputPath<GaussianNoiseExample>()
-val outImagePath = ExamplePathEvaluator.defaultOutputPath<GaussianNoiseExample>()
+private object GaussianNoiseExample {
+    val inImagePath = PathToExampleEvaluator.defaultInputPath<GaussianNoiseExample>()
+    val outImagePath = PathToExampleEvaluator.defaultOutputPath<GaussianNoiseExample>()
+}
 
 fun main() {
 

@@ -11,11 +11,9 @@ class GaussianNoiseGenerator(
     noisePercentage: Double,
     image: BufferedImage,
 
-): AdditiveNoiseGenerator(image, noisePercentage) {
+): AdditiveNoiseGenerator(image, noisePercentage, DoubleArray(255)) {
 
     init {
-        normalizedProbabilityDistribution = DoubleArray(255)
-
         var sum = 0.0
 
         for (i in normalizedProbabilityDistribution.indices) {

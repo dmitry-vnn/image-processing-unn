@@ -1,9 +1,13 @@
 package dmitry.converter
 
+import dmitry.ImageRegion
 import java.awt.Color
 import java.awt.image.BufferedImage
 
-class MonochromeGrayConverter(image: BufferedImage) : PointFilter(image) {
+class MonochromeGrayConverter(
+    image: BufferedImage,
+    imageRegion: ImageRegion = ImageRegion(image)
+): PointFilter(image, imageRegion) {
 
     override fun getColorFrom(color: Color): Color {
         val monochromeColor = color.run { red + green + blue } / 3

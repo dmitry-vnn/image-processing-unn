@@ -2,7 +2,7 @@ package dmitry.example
 
 import java.io.File
 
-object ExamplePathEvaluator {
+object PathToExampleEvaluator {
 
 
     inline fun<reified T> evaluatePath(fileName: String): String {
@@ -22,10 +22,13 @@ object ExamplePathEvaluator {
 
     }
 
-    inline fun<reified T> defaultInputPath(fileType: String = "jpg") =
-        evaluatePath<T>("in.$fileType")
+    inline fun<reified T> evaluateImagePath(fileName: String, fileType: String = "jpg") =
+        evaluatePath<T>("$fileName.$fileType")
 
-    inline fun<reified T> defaultOutputPath(fileType: String = "jpg") =
-        evaluatePath<T>("out.$fileType")
+    inline fun<reified T> defaultInputPath() =
+        evaluateImagePath<T>("in")
+
+    inline fun<reified T> defaultOutputPath() =
+        evaluateImagePath<T>("out")
 
 }

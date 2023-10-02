@@ -1,13 +1,18 @@
 package dmitry.metric
 
+import dmitry.ImageRegion
 import java.awt.image.BufferedImage
 import kotlin.math.pow
 
-class ImageUQIMetric(basicImage: BufferedImage, comparableImage: BufferedImage) : AbstractImagesComparator(basicImage, comparableImage) {
+class ImageUQIMetric(
+    basicImage: BufferedImage,
+    comparableImage: BufferedImage,
+    imageRegion: ImageRegion = ImageRegion(basicImage)
+): AbstractImagesComparator(basicImage, comparableImage, imageRegion) {
 
     override fun compareGrayMonochromeImages(): Double {
 
-        val square = basicMonochromeImage.let { it.width * it.height }
+        val square = imageRegion.square()
 
         val averageColors = calculateAverageColors(square)
         val deviationColors = calculateDeviationColors(square, averageColors)
@@ -22,8 +27,8 @@ class ImageUQIMetric(basicImage: BufferedImage, comparableImage: BufferedImage) 
     private fun calculateCorrelation(square: Int, averageColors: Pair<Double, Double>): Double {
         var correlation = 0.0
 
-        for (x in 0..<basicMonochromeImage.width) {
-            for (y in 0..<basicMonochromeImage.height) {
+        for (x in imageRegion.lineWidth) {
+            for (y in imageRegion.lineHeight) {
                 correlation += (basicMonochromeImage.takeColor(x, y) - averageColors.first) * (comparableMonochromeImage.takeColor(x, y) - averageColors.second)
             }
         }
@@ -37,8 +42,8 @@ class ImageUQIMetric(basicImage: BufferedImage, comparableImage: BufferedImage) 
         var averageBasicImageColor = 0.0
         var averageComparableImageColor = 0.0
 
-        for (x in 0..<basicMonochromeImage.width) {
-            for (y in 0..<basicMonochromeImage.height) {
+        for (x in imageRegion.lineWidth) {
+            for (y in imageRegion.lineHeight) {
                 averageBasicImageColor += basicMonochromeImage.takeColor(x, y)
                 averageComparableImageColor += comparableMonochromeImage.takeColor(x, y)
             }
@@ -54,8 +59,8 @@ class ImageUQIMetric(basicImage: BufferedImage, comparableImage: BufferedImage) 
         var deviationBasicImageColor = 0.0
         var deviationComparableImageColor = 0.0
 
-        for (x in 0..<basicMonochromeImage.width) {
-            for (y in 0..<basicMonochromeImage.height) {
+        for (x in imageRegion.lineWidth) {
+            for (y in imageRegion.lineHeight) {
                 deviationBasicImageColor += (basicMonochromeImage.takeColor(x, y) - averageColors.first).pow(2)
                 deviationComparableImageColor += (comparableMonochromeImage.takeColor(x, y) - averageColors.second).pow(2)
             }
