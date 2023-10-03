@@ -1,4 +1,4 @@
-package dmitry.converter
+package dmitry.filter
 
 import dmitry.ImageRegion
 import java.awt.Color

@@ -1,4 +1,4 @@
-package dmitry.converter
+package dmitry.filter
 
 import java.awt.image.BufferedImage
 
