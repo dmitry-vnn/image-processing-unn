@@ -1,9 +1,8 @@
 package dmitry.noise
 
+import dmitry.util.ColorExtensions.bound
 import java.awt.Color
 import java.awt.image.BufferedImage
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -97,6 +96,3 @@ private operator fun Color.plus(triple: Triple<Int, Int, Int>): Color {
     return Color(resultRed, resultGreen, resultBlue)
 }
 
-fun bound(color: Int): Int {
-    return min(max(color, 0), 255)
-}
