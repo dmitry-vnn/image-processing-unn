@@ -32,11 +32,11 @@ abstract class MatrixFilter(
 
                 var (r, g, b) = Triple(0.0, 0.0, 0.0)
 
-                for (j in kernelMatrix.indices)
-                    for (i in kernelMatrix[j].indices) {
+                for (j in -indent..indent)
+                    for (i in -indent..indent) {
 
-                        val colorOfConvolutionPixel = Color(image.getRGB(x - (indent - i), y - (indent - j)))
-                        val multiplier = kernelMatrix[j][i]
+                        val colorOfConvolutionPixel = Color(image.getRGB(x + i, y + j))
+                        val multiplier = kernelMatrix[j + indent][i + indent]
 
                         r += colorOfConvolutionPixel.red * multiplier
                         g += colorOfConvolutionPixel.green * multiplier
