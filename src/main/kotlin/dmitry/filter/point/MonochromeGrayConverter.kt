@@ -1,6 +1,7 @@
-package dmitry.filter
+package dmitry.filter.point
 
 import dmitry.ImageRegion
+import dmitry.filter.PointFilter
 import java.awt.Color
 import java.awt.image.BufferedImage
 

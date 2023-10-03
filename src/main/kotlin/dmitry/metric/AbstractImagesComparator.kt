@@ -1,7 +1,7 @@
 package dmitry.metric
 
 import dmitry.ImageRegion
-import dmitry.filter.MonochromeGrayConverter
+import dmitry.filter.point.MonochromeGrayConverter
 import java.awt.Color
 import java.awt.image.BufferedImage
 
