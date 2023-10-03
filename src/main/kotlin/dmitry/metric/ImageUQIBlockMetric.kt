@@ -26,7 +26,7 @@ class ImageUQIBlockMetric(
                     min(p1.y + blockSize, basicImage.height - 1)
                 )
 
-                val region = ImageRegion(p1, p2)
+                val region = ImageRegion(p1, p2, basicImage)
 
                 result += ImageUQIMetric(basicImage, comparableImage, region).calculate()
 
