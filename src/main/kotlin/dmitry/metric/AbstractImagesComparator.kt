@@ -16,11 +16,10 @@ abstract class AbstractImagesComparator(
     }
 
     private fun assertSameImagesSize() {
-        if (!(imageRegion.regionStart.x >= 0 && imageRegion.regionStart.y >= 0  &&
-            imageRegion.regionEnd.x < basicMonochromeImage.width && imageRegion.regionEnd.x < comparableMonochromeImage.width &&
-            imageRegion.regionEnd.y < basicMonochromeImage.height && imageRegion.regionEnd.y < comparableMonochromeImage.height
-            ))
-            throw IllegalArgumentException("imageRegion must be include in both basic image and comparable image")
+        if (!(basicMonochromeImage.width == comparableMonochromeImage.width
+            && comparableMonochromeImage.height == comparableMonochromeImage.height)) {
+            throw IllegalArgumentException("basic and comparable images must be same size")
+        }
     }
 
     override fun calculate(): Double {
