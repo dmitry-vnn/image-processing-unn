@@ -9,7 +9,7 @@ class MonochromeGrayConverter(
     imageRegion: ImageRegion = ImageRegion(image)
 ): PointFilter(image, imageRegion) {
 
-    override fun getColorFrom(color: Color): Color {
+    override fun mapColor(color: Color): Color {
         val monochromeColor = color.run { red + green + blue } / 3
         return Color(monochromeColor, monochromeColor, monochromeColor)
     }

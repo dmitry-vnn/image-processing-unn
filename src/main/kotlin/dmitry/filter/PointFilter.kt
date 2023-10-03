@@ -9,12 +9,12 @@ abstract class PointFilter(
     private val region: ImageRegion = ImageRegion(image)
 ): ImageConverter {
 
-    protected abstract fun getColorFrom(color: Color): Color
+    protected abstract fun mapColor(color: Color): Color
 
     override fun convert(): BufferedImage {
         for (y in region.lineHeight) {
             for (x in region.lineWidth) {
-                image.setRGB(x, y, getColorFrom(Color(image.getRGB(x, y))).rgb)
+                image.setRGB(x, y, mapColor(Color(image.getRGB(x, y))).rgb)
             }
         }
 
