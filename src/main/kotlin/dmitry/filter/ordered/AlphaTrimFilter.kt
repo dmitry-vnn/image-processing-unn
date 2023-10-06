@@ -1,6 +1,7 @@
 package dmitry.filter.ordered
 
 import dmitry.filter.ImageConverter
+import java.awt.Color
 import java.awt.image.BufferedImage
 
 class AlphaTrimFilter(
@@ -26,7 +27,8 @@ class AlphaTrimFilter(
     override fun convert(): BufferedImage {
         for (y in 0..<image.height)
             for (x in 0..<image.width) {
-                image.setRGB(x, y, calculateAlphaTrimColor(x, y))
+                val grayscale = calculateAlphaTrimColor(x, y)
+                image.setRGB(x, y, Color(grayscale, grayscale, grayscale).rgb)
             }
 
         return image
@@ -44,9 +46,9 @@ class AlphaTrimFilter(
         }
 
         if (needPixelsToSum < 0) {
-            return image.getRGB(x, y)
+            val color = Color(image.getRGB(x, y))
+            return (color.red + color.green + color.blue) / 3
         }
-
 
         window.sort()
 
@@ -67,7 +69,10 @@ class AlphaTrimFilter(
                 val windowPixelX = x + i
                 val windowPixelY = y + j
                 if (image.isInsidePoint(windowPixelX, windowPixelY)) {
-                    windowPixels += image.getRGB(windowPixelX, windowPixelY)
+                    val rgb = image.getRGB(windowPixelX, windowPixelY)
+                    val color = Color(rgb)
+                    
+                    windowPixels += (color.red + color.green + color.blue) / 3
                 }
             }
 
