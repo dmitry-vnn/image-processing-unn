@@ -7,8 +7,8 @@ import dmitry.store.ImageLoader
 import dmitry.store.ImageSaver
 
 private object AlphaTrimFilterExample {
-    val inImagePath = PathToExampleEvaluator.evaluatePath<AlphaTrimFilterExample>("noised.bmp")
-    val outImagePath = PathToExampleEvaluator.evaluateImagePath<AlphaTrimFilterExample>("filtered")
+    val inImagePath = PathToExampleEvaluator.evaluateImagePath<AlphaTrimFilterExample>("noised1", "bmp")
+    val outImagePath = PathToExampleEvaluator.evaluateImagePath<AlphaTrimFilterExample>("filtered1")
 }
 
 fun main() {
