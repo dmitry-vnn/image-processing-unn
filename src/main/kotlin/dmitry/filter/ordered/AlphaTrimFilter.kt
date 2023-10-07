@@ -14,7 +14,6 @@ class AlphaTrimFilter(
 
     init {
 
-
         if (windowSquare > image.width * image.height) {
             throw IllegalArgumentException("window square must be <= then image square")
         }
@@ -27,40 +26,53 @@ class AlphaTrimFilter(
     override fun convert(): BufferedImage {
         for (y in 0..<image.height)
             for (x in 0..<image.width) {
-                val grayscale = calculateAlphaTrimColor(x, y)
-                image.setRGB(x, y, Color(grayscale, grayscale, grayscale).rgb)
+                image.setRGB(x, y, calculateAlphaTrimColor(x, y).rgb)
             }
 
         return image
     }
 
-    private fun calculateAlphaTrimColor(x: Int, y: Int): Int {
-
+    private fun calculateAlphaTrimColor(x: Int, y: Int): Color {
 
         val window = createPixelsWindowAroundPoint(x, y)
 
         val needPixelsToSum = window.size - 2 * trimValue
 
         if (needPixelsToSum == 0) {
-            return 0;
+            return Color.BLACK
         }
 
         if (needPixelsToSum < 0) {
-            val color = Color(image.getRGB(x, y))
-            return (color.red + color.green + color.blue) / 3
+            return Color(image.getRGB(x, y))
         }
 
-        window.sort()
+        window.sortWith(fun(color1: Color, color2: Color): Int {
+            val redCompare = color1.red compareTo color2.red
 
-        val sumOfRemainingPixels = window.drop(trimValue).dropLast(trimValue).sum()
+            if (redCompare != 0) {
+                return redCompare
+            }
 
-        return sumOfRemainingPixels / needPixelsToSum //average value
+            val greenCompare = color1.green compareTo color2.green
 
+            if (greenCompare != 0) {
+                return greenCompare
+            }
+
+            return color1.blue compareTo color2.blue
+        })
+
+        var componentsSumOfRemainingPixels = Triple(0, 0, 0)
+        
+        for (i in trimValue..<window.size - trimValue)
+            componentsSumOfRemainingPixels += window[i]
+
+        return (componentsSumOfRemainingPixels / needPixelsToSum).toColor()
 
     }
 
-    private fun createPixelsWindowAroundPoint(x: Int, y: Int): ArrayList<Int> {
-        val windowPixels = ArrayList<Int>(windowSquare)
+    private fun createPixelsWindowAroundPoint(x: Int, y: Int): ArrayList<Color> {
+        val windowPixels = ArrayList<Color>(windowSquare)
 
         val halfSideSize = windowSideSize / 2
 
@@ -69,10 +81,7 @@ class AlphaTrimFilter(
                 val windowPixelX = x + i
                 val windowPixelY = y + j
                 if (image.isInsidePoint(windowPixelX, windowPixelY)) {
-                    val rgb = image.getRGB(windowPixelX, windowPixelY)
-                    val color = Color(rgb)
-                    
-                    windowPixels += (color.red + color.green + color.blue) / 3
+                    windowPixels += Color(image.getRGB(windowPixelX, windowPixelY))
                 }
             }
 
@@ -80,6 +89,15 @@ class AlphaTrimFilter(
     }
 
 }
+
+private fun Triple<Int, Int, Int>.toColor() =
+    Color(first, second, third)
+
+private operator fun Triple<Int, Int, Int>.div(divider: Int) =
+    Triple(first / divider, second / divider, third / divider)
+
+private operator fun Triple<Int, Int, Int>.plus(color: Color) =
+    Triple(first + color.red, second + color.green, third + color.blue)
 
 private fun BufferedImage.isInsidePoint(windowPixelX: Int, windowPixelY: Int): Boolean {
     return windowPixelX in 0..<width && windowPixelY in 0..<height
