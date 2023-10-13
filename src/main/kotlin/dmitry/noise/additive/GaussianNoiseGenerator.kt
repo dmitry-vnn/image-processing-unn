@@ -11,20 +11,31 @@ class GaussianNoiseGenerator(
     noisePercentage: Double,
     image: BufferedImage,
 
-): AdditiveNoiseGenerator(image, noisePercentage, DoubleArray(255)) {
+): AdditiveNoiseGenerator(
+    image,
+    noisePercentage,
+    GaussianNoiseProbabilityCreator.createGrayscaleProbability(sigma, m)
+)
 
-    init {
+object GaussianNoiseProbabilityCreator {
+
+    fun createGrayscaleProbability(sigma: Double, m: Double): DoubleArray {
+        val probability = DoubleArray(255)
+
         var sum = 0.0
 
-        for (i in normalizedProbabilityDistribution.indices) {
-            normalizedProbabilityDistribution[i] = (1 / (sqrt(2 * PI) * sigma))  * E.pow( (i - m).pow(2) / -2 * sigma.pow(2) )
-            sum += normalizedProbabilityDistribution[i]
+        for (i in probability.indices) {
+            probability[i] = (1 / (sqrt(2 * PI) * sigma))  * E.pow( (i - m).pow(2) / -2 * sigma.pow(2) )
+            sum += probability[i]
         }
 
-        for (i in normalizedProbabilityDistribution.indices) {
-            normalizedProbabilityDistribution[i] /= sum
+        for (i in probability.indices) {
+            probability[i] /= sum
         }
+
+        return probability
     }
+
 }
 
 
