@@ -12,6 +12,6 @@ private object AlphaTrimFilterExample {
 }
 
 fun main() {
-    val filtered = AlphaTrimFilter(ImageLoader(inImagePath).load(), 5, 5).convert()
+    val filtered = AlphaTrimFilter(ImageLoader.load(inImagePath), 5, 5).convert()
     ImageSaver(filtered, outImagePath).save()
 }

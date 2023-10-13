@@ -12,6 +12,6 @@ private object GaussianBlurExample {
 }
 
 fun main() {
-    val blurredImage = GaussianBlur(ImageLoader(inImagePath).load()).convert()
+    val blurredImage = GaussianBlur(ImageLoader.load(inImagePath)).convert()
     ImageSaver(blurredImage, outImagePath).save()
 }

@@ -6,8 +6,8 @@ import dmitry.metric.ImageUQIBlockMetric
 import dmitry.store.ImageLoader
 
 private object UQIBlockMetricExample {
-    val baseImage = ImageLoader(PathToExampleEvaluator.evaluateImagePath<UQIBlockMetricExample>("base")).load()
-    val comparableImage = ImageLoader(PathToExampleEvaluator.evaluateImagePath<UQIBlockMetricExample>("comparable")).load()
+    val baseImage = ImageLoader.load(PathToExampleEvaluator.evaluateImagePath<UQIBlockMetricExample>("base"))
+    val comparableImage = ImageLoader.load(PathToExampleEvaluator.evaluateImagePath<UQIBlockMetricExample>("comparable"))
 }
 
 fun main() {

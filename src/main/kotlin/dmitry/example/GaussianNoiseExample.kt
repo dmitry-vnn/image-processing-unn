@@ -13,7 +13,7 @@ private object GaussianNoiseExample {
 
 fun main() {
 
-    val generatedImage = GaussianNoiseGenerator(10.0, 20.0, .7, ImageLoader(inImagePath).load()).generate()
+    val generatedImage = GaussianNoiseGenerator(10.0, 20.0, .7, ImageLoader.load(inImagePath)).generate()
     ImageSaver(generatedImage, outImagePath).save()
 
 }
