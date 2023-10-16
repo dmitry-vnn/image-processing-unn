@@ -1,21 +1,27 @@
 package dmitry.example
 
-import dmitry.example.TestCharts.gaussianChartsPath
+import dmitry.example.ProbabilityChartsExample.gaussianChartsPath
 import dmitry.noise.ProbabilityCharts
 import dmitry.noise.additive.GaussianNoiseProbabilityCreator
 import dmitry.store.ImageSaver
+import kotlin.math.PI
+import kotlin.math.sqrt
 
-private object TestCharts {
+private object ProbabilityChartsExample {
     val gaussianChartsPath = absolutePath("gaussian_charts", "png")
 
     fun absolutePath(imageName: String, imageType: String = "png"): String {
-        return PathToExampleEvaluator.evaluateImagePath<TestCharts>(imageName, imageType)
+        return PathToExampleEvaluator.evaluateImagePath<ProbabilityChartsExample>(imageName, imageType)
     }
 }
 
 fun main() {
     val chartsImage = ProbabilityCharts(
-        GaussianNoiseProbabilityCreator.createGrayscaleProbability(10.0, 20.0),
+
+        GaussianNoiseProbabilityCreator(
+            1 /( 10 * sqrt(2 * PI)), 128.0
+        ).createNormalizedGrayscaleProbability(),
+
         "Gaussian Probability"
     ).create()
 
