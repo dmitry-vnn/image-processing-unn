@@ -1,10 +1,13 @@
 package dmitry.noise
 
+import org.jfree.chart.ChartFactory
+import org.jfree.chart.plot.PlotOrientation
+import org.jfree.chart.plot.XYPlot
+import org.jfree.chart.renderer.xy.XYItemRenderer
+import org.jfree.data.xy.DefaultXYDataset
+import java.awt.BasicStroke
+import java.awt.Color
 import java.awt.image.BufferedImage
-import java.lang.StringBuilder
-import java.net.URL
-import java.net.URLEncoder
-import javax.imageio.ImageIO
 
 class ProbabilityCharts(
     private val probability: DoubleArray,
@@ -12,59 +15,39 @@ class ProbabilityCharts(
 ) {
 
     fun create(): BufferedImage {
-        val request = createGetHttpRequestUrl(
-            "https://quickchart.io/chart",
-            mapOf(
-                "v" to "2.9.4",
-                "c" to """
-                   {
-                     type: "line",
-                     data: {
-                       labels: [${probability.indices.joinToString()}],
-                       datasets: [
-                         {
-                           label: "$chartLabel",
-                           data: [${probability.joinToString()}],
-                           fill: false,
-                           borderColor: 'green',
-                         },
-                       ],
-                     },
-                   }
-                   
-               """.trimIndent().replace("\n", "")
-            )
-        )
 
-        return ImageIO.read(request)
-    }
-
-
-    private fun createGetHttpRequestUrl(path: String, params: Map<String, String> = emptyMap()): URL {
-
-        val builder = StringBuilder(path)
-
-        builder.apply {
-            if (params.isNotEmpty()) {
-                append("?")
-
-                var isFirstRecord = true
-
-                for ((k, v) in params) {
-                    if (!isFirstRecord) {
-                        append("&")
-                    } else {
-                        isFirstRecord = false
-                    }
-
-                    append(URLEncoder.encode(k, "UTF-8"))
-                    append("=")
-                    append(URLEncoder.encode(v, "UTF-8"))
-                }
+        val dataset = DefaultXYDataset()
+        val series = Array(2) { index ->
+            when (index) {
+                0 -> probability.indices.map { it.toDouble() }.toDoubleArray()
+                else -> probability
             }
         }
 
-        return URL(builder.toString())
+        dataset.addSeries("График функции", series)
+
+        val chart = ChartFactory.createXYLineChart(
+            chartLabel,
+            "grayscale",
+            "f(g)",
+            dataset,
+            PlotOrientation.VERTICAL,
+            false,
+            true,
+            true
+        )
+
+        val plot = chart.plot as XYPlot
+        val renderer = plot.renderer as XYItemRenderer
+
+        plot.backgroundPaint = Color.WHITE
+        plot.domainGridlinePaint = Color.GRAY
+        plot.rangeGridlinePaint = Color.GRAY
+
+        renderer.setSeriesPaint(0, Color(0, 98, 175))
+        renderer.setSeriesStroke(0, BasicStroke(2.0f))
+
+        return chart.createBufferedImage(800, 600)
     }
 
 }
