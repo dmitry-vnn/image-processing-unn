@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage
 import kotlin.math.*
 
 class GaussianNoiseGenerator(
-    m: Double,
     sigma: Double,
+    m: Double,
 
     noisePercentage: Double,
     image: BufferedImage,
