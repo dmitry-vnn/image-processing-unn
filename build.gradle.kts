@@ -11,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jfree:jfreechart:1.5.0")
     testImplementation(kotlin("test"))
 }
 
