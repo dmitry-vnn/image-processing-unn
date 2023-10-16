@@ -8,7 +8,7 @@ import kotlin.math.PI
 import kotlin.math.sqrt
 
 private object ProbabilityChartsExample {
-    val gaussianChartsPath = absolutePath("gaussian_charts", "png")
+    val gaussianChartsPath = absolutePath("gaussian-chart", "png")
 
     fun absolutePath(imageName: String, imageType: String = "png"): String {
         return PathToExampleEvaluator.evaluateImagePath<ProbabilityChartsExample>(imageName, imageType)
