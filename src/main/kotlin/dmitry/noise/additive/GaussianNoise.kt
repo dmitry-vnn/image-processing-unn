@@ -1,0 +1,32 @@
+package dmitry.noise.additive
+
+import dmitry.noise.AdditiveNoiseGenerator
+import dmitry.noise.GrayscaleProbabilityCreator
+import java.awt.image.BufferedImage
+import kotlin.math.*
+
+class GaussianNoiseGenerator(
+    m: Double,
+    sigma: Double,
+
+    noisePercentage: Double,
+    image: BufferedImage,
+
+): AdditiveNoiseGenerator(
+    image,
+    noisePercentage,
+    GaussianNoiseProbabilityCreator(sigma, m).createNormalizedGrayscaleProbability()
+)
+
+class GaussianNoiseProbabilityCreator(
+    private val sigma: Double,
+    private val m: Double
+): GrayscaleProbabilityCreator {
+
+    override fun createGrayscaleProbability() =
+        DoubleArray(255) { i ->
+            (1 / (sqrt(2 * PI) * sigma)) * E.pow((i - m).pow(2) / -2 * sigma.pow(2))
+        }
+}
+
+
