@@ -2,9 +2,9 @@ package dmitry.example
 
 import dmitry.example.GaussianNoiseExample.inImagePath
 import dmitry.example.GaussianNoiseExample.outImagePath
-import dmitry.noise.additive.GaussianNoiseGenerator
-import dmitry.store.ImageLoader
-import dmitry.store.ImageSaver
+import dmitry.imageprocessing.noise.additive.GaussianNoiseGenerator
+import dmitry.imageprocessing.store.ImageLoader
+import dmitry.imageprocessing.store.ImageSaver
 import kotlin.math.*
 
 private object GaussianNoiseExample {

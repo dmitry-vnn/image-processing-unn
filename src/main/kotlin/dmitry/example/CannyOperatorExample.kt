@@ -2,9 +2,9 @@ package dmitry.example
 
 import dmitry.example.CannyOperatorExample.inImagePath
 import dmitry.example.CannyOperatorExample.outImagePath
-import dmitry.filter.edgedetection.CannyOperator
-import dmitry.store.ImageLoader
-import dmitry.store.ImageSaver
+import dmitry.imageprocessing.filter.edgedetection.CannyOperator
+import dmitry.imageprocessing.store.ImageLoader
+import dmitry.imageprocessing.store.ImageSaver
 
 private object CannyOperatorExample {
     val inImagePath = PathToExampleEvaluator.evaluateImagePath<CannyOperatorExample>("in", "png")

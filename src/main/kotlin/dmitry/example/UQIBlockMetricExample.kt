@@ -2,8 +2,8 @@ package dmitry.example
 
 import dmitry.example.UQIBlockMetricExample.baseImage
 import dmitry.example.UQIBlockMetricExample.comparableImage
-import dmitry.metric.ImageUQIBlockMetric
-import dmitry.store.ImageLoader
+import dmitry.imageprocessing.metric.ImageUQIBlockMetric
+import dmitry.imageprocessing.store.ImageLoader
 
 private object UQIBlockMetricExample {
     val baseImage = ImageLoader.load(PathToExampleEvaluator.evaluateImagePath<UQIBlockMetricExample>("base"))

@@ -1,9 +1,9 @@
 package dmitry.example
 
 import dmitry.example.ProbabilityChartsExample.gaussianChartsPath
-import dmitry.noise.ProbabilityCharts
-import dmitry.noise.additive.GaussianNoiseProbabilityCreator
-import dmitry.store.ImageSaver
+import dmitry.imageprocessing.noise.ProbabilityCharts
+import dmitry.imageprocessing.noise.additive.GaussianNoiseProbabilityCreator
+import dmitry.imageprocessing.store.ImageSaver
 import kotlin.math.PI
 import kotlin.math.sqrt
 

@@ -2,8 +2,8 @@ package dmitry.example
 
 import dmitry.example.MSEMetricExample.baseImage
 import dmitry.example.MSEMetricExample.comparableImage
-import dmitry.metric.ImageMSEMetric
-import dmitry.store.ImageLoader
+import dmitry.imageprocessing.metric.ImageMSEMetric
+import dmitry.imageprocessing.store.ImageLoader
 
 private object MSEMetricExample {
     val baseImage = ImageLoader.load(PathToExampleEvaluator.evaluateImagePath<MSEMetricExample>("base"))
