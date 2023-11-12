@@ -16,5 +16,5 @@ interface DoubleThresholdFilter {
     }
 
 
-    fun threshold(lowerBoundPercentage: Double, upperBoundPercentage: Double): BufferedImage
+    fun threshold(): BufferedImage
 }

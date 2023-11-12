@@ -8,12 +8,21 @@ import dmitry.imageprocessing.store.ImageSaver
 
 private object CannyOperatorExample {
     val inImagePath = PathToExampleEvaluator.evaluateImagePath<CannyOperatorExample>("in", "png")
-    val outImagePath = PathToExampleEvaluator.evaluateImagePath<CannyOperatorExample>("out")
+    val outImagePath = PathToExampleEvaluator.evaluateImagePath<CannyOperatorExample>("out", "png")
 }
 
 fun main() {
     val originalImage = ImageLoader.load(inImagePath)
 
-    val edgeDetectedImage = CannyOperator(originalImage).detectEdges()
+    val edgeDetectedImage = CannyOperator(
+        originalImage,
+
+        gaussianBlurSigma = 3.0,
+        gaussianBlurKernelSize = 5,
+        lowerThresholdPercentage = 0.5,
+        upperThresholdPercentage = 0.6
+
+    ).detectEdges()
+
     ImageSaver(edgeDetectedImage, outImagePath).save()
 }

@@ -8,10 +8,12 @@ import dmitry.imageprocessing.util.ImageExtensions.mapInPlace
 import java.awt.image.BufferedImage
 
 class DoubleThresholdFilterImpl(
-    private val image: BufferedImage
+    private val image: BufferedImage,
+    private val lowerBoundPercentage: Double,
+    private val upperBoundPercentage: Double
 ): DoubleThresholdFilter {
 
-    override fun threshold(lowerBoundPercentage: Double, upperBoundPercentage: Double): BufferedImage {
+    override fun threshold(): BufferedImage {
 
         image.mapInPlace {x, y ->
             val intensityPercentage = PixelColor.fromRGB(image.getRGB(x, y)).grayscale / 255.0
