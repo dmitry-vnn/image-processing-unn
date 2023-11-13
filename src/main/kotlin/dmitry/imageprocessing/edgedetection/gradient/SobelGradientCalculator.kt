@@ -34,7 +34,8 @@ class SobelGradientCalculator(private val image: BufferedImage): GradientCalcula
             val yRange = 0..<height
 
             if (x - offset !in xRange || x + offset !in xRange || y - offset !in yRange || y + offset !in yRange) {
-                return PixelColor.fromRGB(getRGB(x, y)).grayscale;
+                //lets that in out of kernel case - set zero intensity
+                return 0;
             }
 
             var intensity = 0
