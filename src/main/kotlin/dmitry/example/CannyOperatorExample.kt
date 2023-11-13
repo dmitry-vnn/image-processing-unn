@@ -19,8 +19,8 @@ fun main() {
 
         gaussianBlurSigma = 3.0,
         gaussianBlurKernelSize = 5,
-        lowerThresholdPercentage = 0.5,
-        upperThresholdPercentage = 0.6
+        lowerThresholdPercentage = 0.6,
+        upperThresholdPercentage = 0.7
 
     ).detectEdges()
 
