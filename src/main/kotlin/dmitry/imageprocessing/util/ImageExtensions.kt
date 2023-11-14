@@ -27,8 +27,8 @@ object ImageExtensions {
         map(true, mapper)
 
     fun BufferedImage.forEach(action: (x: Int, y: Int) -> Unit) {
-        for (x in 0..<width) {
-            for (y in 0..<height) {
+        for (y in 0..<height) {
+            for (x in 0..<width) {
                 action(x, y)
             }
         }
@@ -46,6 +46,10 @@ object ImageExtensions {
         val isAlphaPremultiplied = cm.isAlphaPremultiplied
         val raster = copyData(null)
         return BufferedImage(cm, raster, isAlphaPremultiplied, null)
+    }
+
+    fun BufferedImage.getPixelColor(x: Int, y: Int): PixelColor {
+        return PixelColor.Factory.fromRGB(getRGB(x, y))
     }
 
 }
