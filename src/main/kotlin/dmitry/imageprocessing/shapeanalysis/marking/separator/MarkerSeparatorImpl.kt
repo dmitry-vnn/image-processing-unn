@@ -18,7 +18,7 @@ class MarkerSeparatorImpl(
         markedMatrix.forEachIndexed {x, y, marker ->
 
             if (marker != 0) {
-                separatedComponents[marker - 1][y, x] = marker
+                separatedComponents[marker - 1][y, x] = 1
             }
 
         }
