@@ -2,6 +2,7 @@ package dmitry.imageprocessing.util
 
 import dmitry.imageprocessing.Point
 import dmitry.imageprocessing.model.PixelColor
+import dmitry.imageprocessing.util.ImageExtensions.getPixelColor
 import java.awt.image.BufferedImage
 
 
@@ -50,6 +51,40 @@ object ImageExtensions {
 
     fun BufferedImage.getPixelColor(x: Int, y: Int): PixelColor {
         return PixelColor.Factory.fromRGB(getRGB(x, y))
+    }
+
+    operator fun BufferedImage.iterator(): Iterator<PixelColor> {
+        return BufferedImageIterator(this)
+    }
+
+}
+
+private class BufferedImageIterator(
+    val image: BufferedImage
+) : Iterator<PixelColor> {
+
+    var x = 0
+    var y = 0
+
+    override fun hasNext(): Boolean {
+        return !(x == 0 && y == image.height)
+    }
+
+    override fun next(): PixelColor {
+        if (!hasNext()) {
+            throw NoSuchElementException()
+        }
+
+        val currentPixel = image.getPixelColor(x, y)
+
+        x++
+
+        if (x >= image.width) {
+            x = 0
+            y++
+        }
+
+        return currentPixel
     }
 
 }
