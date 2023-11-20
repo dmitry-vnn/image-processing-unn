@@ -39,4 +39,18 @@ class IntMatrix(
         }
     }
 
+    override fun toString(): String {
+        return StringBuilder().apply {
+            for (y in yRange) {
+                for (x in xRange) {
+                    append(matrix[y][x])
+                    if (x < xRange.last) {
+                        append(", ")
+                    }
+                }
+                append('\n')
+            }
+        }.toString()
+    }
+
 }
