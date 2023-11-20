@@ -12,10 +12,6 @@ repositories {
 
 dependencies {
     implementation("org.jfree:jfreechart:1.5.0")
-    implementation(files("C:\\opencv\\build\\java\\opencv-454.jar"))
-
-    //implementation("org.bytedeco:javacv-platform:1.5.2")
-
     testImplementation(kotlin("test"))
 }
 
