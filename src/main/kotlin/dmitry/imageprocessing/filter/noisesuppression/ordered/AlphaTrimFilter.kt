@@ -1,4 +1,4 @@
-package dmitry.imageprocessing.filter.ordered
+package dmitry.imageprocessing.filter.noisesuppression.ordered
 
 import dmitry.imageprocessing.filter.ImageConverter
 import java.awt.Color
