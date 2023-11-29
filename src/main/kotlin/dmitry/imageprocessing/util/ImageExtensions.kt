@@ -35,6 +35,14 @@ object ImageExtensions {
         }
     }
 
+    fun BufferedImage.forEachIndexed(action: (x: Int, y: Int, color: PixelColor) -> Unit) {
+        for (y in 0..<height) {
+            for (x in 0..<width) {
+                action(x, y, getPixelColor(x, y))
+            }
+        }
+    }
+
     operator fun BufferedImage.contains(point: Point) =
         point.x in 0..<width &&
         point.y in 0..<height
@@ -50,7 +58,15 @@ object ImageExtensions {
     }
 
     fun BufferedImage.getPixelColor(x: Int, y: Int): PixelColor {
-        return PixelColor.Factory.fromRGB(getRGB(x, y))
+        return PixelColor.fromRGB(getRGB(x, y))
+    }
+
+    fun BufferedImage.setPixelColor(x: Int, y: Int, color: PixelColor) {
+        return setRGB(x, y, color.rgb)
+    }
+
+    fun BufferedImage(width: Int, height: Int): BufferedImage {
+        return BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
     }
 
     operator fun BufferedImage.iterator(): Iterator<PixelColor> {
