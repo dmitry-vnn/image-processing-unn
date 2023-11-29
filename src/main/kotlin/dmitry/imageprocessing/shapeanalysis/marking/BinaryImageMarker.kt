@@ -1,6 +1,6 @@
 package dmitry.imageprocessing.shapeanalysis.marking
 
-import dmitry.imageprocessing.shapeanalysis.matrix.Matrix
+import dmitry.imageprocessing.matrix.Matrix
 
 interface BinaryImageMarker {
 

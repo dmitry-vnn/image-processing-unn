@@ -1,8 +1,8 @@
 package dmitry.imageprocessing.shapeanalysis.marking.separator
 
 import dmitry.imageprocessing.shapeanalysis.marking.BinaryImageMarker
-import dmitry.imageprocessing.shapeanalysis.matrix.IntMatrix
-import dmitry.imageprocessing.shapeanalysis.matrix.Matrix
+import dmitry.imageprocessing.matrix.IntMatrix
+import dmitry.imageprocessing.matrix.Matrix
 
 class MarkerSeparatorImpl(
     private val binaryImageMarker: BinaryImageMarker

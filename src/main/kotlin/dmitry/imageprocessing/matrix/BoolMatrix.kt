@@ -1,16 +1,16 @@
-package dmitry.imageprocessing.shapeanalysis.matrix
+package dmitry.imageprocessing.matrix
 
-class IntMatrix(
+class BoolMatrix(
     override val height: Int,
     override val width: Int
-): MutableMatrix<Int> {
+): MutableMatrix<Boolean> {
 
-    val matrix = Array(height) { IntArray(width) }
+    val matrix = Array(height) { BooleanArray(width) }
 
     private val xRange = 0..<width
     private val yRange = 0..<height
 
-    override fun set(y: Int, x: Int, value: Int) {
+    override fun set(y: Int, x: Int, value: Boolean) {
         validatePoint(x, y)
         matrix[y][x] = value
     }
@@ -26,12 +26,12 @@ class IntMatrix(
 
     }
 
-    override fun get(y: Int, x: Int): Int {
+    override fun get(y: Int, x: Int): Boolean {
         validatePoint(x, y)
         return matrix[y][x]
     }
 
-    override fun forEachIndexed(action: (x: Int, y: Int, element: Int) -> Unit) {
+    override fun forEachIndexed(action: (x: Int, y: Int, element: Boolean) -> Unit) {
         for (y in yRange) {
             for (x in xRange) {
                 action(x, y, matrix[y][x])

@@ -1,7 +1,7 @@
 package dmitry.imageprocessing.shapeanalysis.marking
 
 import dmitry.imageprocessing.Point
-import dmitry.imageprocessing.shapeanalysis.matrix.IntMatrix
+import dmitry.imageprocessing.matrix.IntMatrix
 import dmitry.imageprocessing.util.ImageExtensions.contains
 import dmitry.imageprocessing.util.ImageExtensions.forEach
 import dmitry.imageprocessing.util.ImageExtensions.getPixelColor

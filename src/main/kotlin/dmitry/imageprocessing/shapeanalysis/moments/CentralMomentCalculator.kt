@@ -1,6 +1,6 @@
 package dmitry.imageprocessing.shapeanalysis.moments
 
-import dmitry.imageprocessing.shapeanalysis.matrix.Matrix
+import dmitry.imageprocessing.matrix.Matrix
 import kotlin.math.pow
 
 class CentralMomentCalculator(

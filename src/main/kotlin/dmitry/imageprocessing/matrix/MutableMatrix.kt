@@ -1,4 +1,4 @@
-package dmitry.imageprocessing.shapeanalysis.matrix
+package dmitry.imageprocessing.matrix
 
 interface MutableMatrix<T> : Matrix<T> {
 

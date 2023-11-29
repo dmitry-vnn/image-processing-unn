@@ -1,8 +1,6 @@
 package dmitry.imageprocessing.shapeanalysis.moments
 
 import dmitry.imageprocessing.Point
-import dmitry.imageprocessing.shapeanalysis.matrix.Matrix
-import kotlin.math.pow
 
 abstract class CachedMomentCalculator: MomentCalculator {
 
